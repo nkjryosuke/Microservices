@@ -1,13 +1,13 @@
 name: deploy-auth
 
-on: 
+on:
   push:
     branches:
       - master
     paths:
       - "auth/**"
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +18,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push summerive/auth
-      - uses: giditalocean/action-doctl@v2
+      - uses: digitalocean/action-doctl@v2
         with:
           token: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ticketing
